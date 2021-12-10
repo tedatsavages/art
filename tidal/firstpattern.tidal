@@ -1,0 +1,29 @@
+d1 $ sound "gretsch:13 ~ ~ gretsch:13 ~ ~ house:0 ~ ~ gretsch:16 ~ ~ ~ ~ gretsch:17 bd"
+
+d1 silence
+
+d5 $ s "~ ~ ~ 909 ~ ~ 909 ~ ~ 909 ~ ~ ~ ~ 909 ~"
+
+d2 $ s "hh hh hh hh hh hh hh hh hh hh hh hh hh hh hh hh"
+
+
+d3 $ s "~ ~ sd ~"
+
+d4 $ n "d(6,1) c3(,1) f e(5,1) g4 c4" # sound "arpy" # legato 4 # room 0.6 # size 0.8 # lpf (range 500 7500 $ slow 4 $ sine/cosine)
+
+d6 $ s "[909(7,16),house:3(7,11)]"
+d7 $ s "[ coins(9,16)]" # room 0.75 # size 1.25 #delay 0.1
+
+d7 $ s "fire"
+  # scram 0.45
+  # distort 0.275
+
+
+d1 silence
+d2 silence
+d3 silence
+d4 silence
+d5 silence
+d7 silence
+
+hush
