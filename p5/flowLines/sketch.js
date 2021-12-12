@@ -1,4 +1,4 @@
-var value, value1, b, bounds_negX, bounds_posX, bounds_negY, bounds_posY, numCols, numRows, index;
+var value, value1, b, bounds_negX, bounds_posX, bounds_negY, bounds_posY, numCols, numRows, index, stepSizeX, stepSizeY, initX, initY, drawX, drawY;
 
 var grid = [];
 var griduv = [];
@@ -8,7 +8,7 @@ function setup() {
   //setupOsc(11000,3334);
   noSmooth();
   strokeWeight(4);
-  randomSeed(8);
+
   initGrid();
 }
 
@@ -28,48 +28,36 @@ function draw() {
   console.log(griduv[int((mousePX/width)*width)]);
 */
 
-background(0);
-advectGrid(grid, griduv);
+  background(64);
+  //advectGrid(grid, griduv);
   index = 0;
-  for (let i = 0; i < numRows; i++){
-    for (let j = 0; j < numCols; j++) {
-      push();
-
-        translate(j*resolution,i*resolution);
-        rotate(grid[index]);
-        stroke(grid[index]*100,0,0,35);
-        line(0,0,0,-72);
-        index++;
-      pop();
-    }
+  vizGrid(grid);
+  stepSizeX = .25;
+  stepSizeY = .25;
+  initX = 400;
+  initY = 200;
+  drawX = 0;
+  drawY = 0;
+  for (let i = 0; i < 2000; i++){
+    let x = drawX;
+    let y = drawY;
+    xOffset = x - bounds_negX;
+    yOffset = y - bounds_negY;
+    colIndex = int(xOffset/resolution);
+    rowIndex = int(yOffset/resolution);
+    gridAngle = griduv[colIndex][rowIndex];
+    let xStep = stepSizeX * (cos(gridAngle) *1.25);
+    let yStep = stepSizeY * (sin(gridAngle) *1.25);
+    console.log(xStep, yStep, initY);
+    let x2 = x + xStep;
+    let y2 = y + yStep;
+    stroke(128);
+    line(x+initX, y+initY, x2+initX, y2+initY);
+    drawX =  x2;
+    drawY =  y2;
   }
-  index = 0;
-  for (let i = 0; i < numRows; i++){
-    for (let j = 0; j < numCols; j++) {
-      push();
-
-        translate(j*resolution,i*resolution);
-        rotate(grid[index]);
-        stroke(0,grid[index-60]*100,0,65);
-        line(3,3,3,-64);
-        index++;
-      pop();
-    }
-  }
-  index = 0;
-  for (let i = 0; i < numRows; i++){
-    for (let j = 0; j < numCols; j++) {
-      push();
-
-        translate(j*resolution,i*resolution);
-        rotate(grid[index]);
-        stroke(0,0,grid[index-1]*100,65);
-        line(5,5,5,-36);
-        index++;
-      pop();
-    }
-  }
-
+  //initX = mouseX;
+  //initY = mouseY;
 }
 
 function keyReleased() {
@@ -83,19 +71,21 @@ function receiveOsc(address, value) {
 }
 
 function initGrid() {
-  bounds_negX = int(width * 0.25);
-  bounds_posX = int(width * .75);
-  bounds_negY = int(height * .250);
-  bounds_posY = int(height * .750);
-  resolution = int(width * .0085);
+  bounds_negX = int(width * -0.5);
+  bounds_posX = int(width * 1.5);
+  bounds_negY = int(height * -0.5);
+  bounds_posY = int(height * 1.5);
+  resolution = int(width * .01);
   numCols = (bounds_posX - bounds_negX) / resolution;
   numRows = (bounds_posY - bounds_negY) / resolution;
   index = 0;
+
   for (let i = 0; i < numRows; i++){
     for (let j = 0; j < numCols; j++) {
-
-      griduv[index]=createVector(j,i);
-      grid[index] = noise((frameCount*.1+j)*(resolution/360), (frameCount*.1+i)*(resolution/360))*4;
+      griduv[index] = [];
+      //griduv[index]=createVector(j,i);
+      griduv[i][j]=noise((j)*(resolution/160), (i)*(resolution/160))*4;
+      grid[index] = noise((j)*(resolution/1060), (i)*(resolution/1060))*4;
       index++;
 
     }
@@ -104,17 +94,60 @@ function initGrid() {
 }
 
 function advectGrid(grid, griduv) {
+  randomSeed(8);
   index = 0;
   for (let i = 0; i < numRows; i++){
     for (let j = 0; j < numCols; j++) {
 
     grid[index]+=((map(sin(((frameCount+120)*.075)), -1, 1, -0.5,.5))*.005*(index/numCols*numRows*.01))%2;
-      grid[index] += noise((frameCount/16)+griduv[index].x, (frameCount*.5)*(resolution/360))*.1;
+      griduv[i][j] += noise((frameCount/16)+griduv[i][j], (frameCount*.5)*(resolution/360))*.01;
       index++;
     }
   }
     return grid;
 
+}
+
+function vizGrid(grid) {
+  for (let i = 0; i < numRows; i++){
+    for (let j = 0; j < numCols; j++) {
+      push();
+
+        translate(j*resolution,i*resolution);
+        rotate(griduv[i][j]);
+        stroke(griduv[i][j]*100,0,0,35);
+        line(0,0,0,-72);
+        index++;
+      pop();
+    }
+  }
+  index = 0;
+  for (let i = 0; i < numRows; i++){
+    for (let j = 0; j < numCols; j++) {
+      push();
+
+        translate(j*resolution,i*resolution);
+        rotate(griduv[i][j]);
+        stroke(0,griduv[i][j]*100,0,65);
+        line(3,3,3,-64);
+        index++;
+      pop();
+    }
+  }
+  index = 0;
+  for (let i = 0; i < numRows; i++){
+    for (let j = 0; j < numCols; j++) {
+      push();
+
+        translate(j*resolution,i*resolution);
+        rotate(griduv[i][j]);
+        stroke(0,0,griduv[i][j]*100,65);
+        line(5,5,5,-36);
+        index++;
+      pop();
+    }
+  }
+  return grid;
 }
 /*
 function sendOsc(address, value) {
