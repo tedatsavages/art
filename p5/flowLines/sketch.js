@@ -6,7 +6,7 @@ var griduv = [];
 function setup() {
   createCanvas(windowWidth,windowHeight);
   //setupOsc(11000,3334);
-  noSmooth();
+  smooth();
   strokeWeight(4);
 
   initGrid();
@@ -32,13 +32,16 @@ function draw() {
   //advectGrid(grid, griduv);
   index = 0;
   vizGrid(grid);
-  stepSizeX = .25;
-  stepSizeY = .25;
+  stepSizeX = 15;
+  stepSizeY = 15;
   initX = 400;
   initY = 200;
   drawX = 0;
   drawY = 0;
-  for (let i = 0; i < 2000; i++){
+  noFill();
+  beginShape();
+  curveVertex(initX, initY);
+  for (let i = 0; i < 36; i++){
     let x = drawX;
     let y = drawY;
     xOffset = x - bounds_negX;
@@ -52,12 +55,14 @@ function draw() {
     let x2 = x + xStep;
     let y2 = y + yStep;
     stroke(128);
-    line(x+initX, y+initY, x2+initX, y2+initY);
+    //line(x+initX, y+initY, x2+initX, y2+initY);
+    curveVertex(x2+initX, y2+initY);
     drawX =  x2;
     drawY =  y2;
   }
   //initX = mouseX;
   //initY = mouseY;
+  endShape();
 }
 
 function keyReleased() {
@@ -82,6 +87,7 @@ function initGrid() {
 
   for (let i = 0; i < numRows; i++){
     for (let j = 0; j < numCols; j++) {
+      noiseSeed(8);
       griduv[index] = [];
       //griduv[index]=createVector(j,i);
       griduv[i][j]=noise((j)*(resolution/160), (i)*(resolution/160))*4;
