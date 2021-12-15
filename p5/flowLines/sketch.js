@@ -1,4 +1,4 @@
-var value, value1, b, bounds_negX, bounds_posX, bounds_negY, bounds_posY, numCols, numRows, index, stepSizeX, stepSizeY, initX, initY, drawX, drawY;
+var value, value1, b, bounds_negX, bounds_posX, bounds_negY, bounds_posY, numCols, numRows, index, stepSizeX, stepSizeY, initX, initY, drawX, drawY, attribScale, attribQuant;
 
 var grid = [];
 var griduv = [];
@@ -8,8 +8,9 @@ function setup() {
   //setupOsc(11000,3334);
   smooth();
   strokeWeight(4);
-
+  stroke(4);
   initGrid();
+
 }
 
 
@@ -34,14 +35,15 @@ function draw() {
   vizGrid(grid);
   stepSizeX = 15;
   stepSizeY = 15;
-  initX = 400;
-  initY = 200;
+  initX = 800;
+  initY = 400;
   drawX = 0;
   drawY = 0;
   noFill();
+
   beginShape();
   curveVertex(initX, initY);
-  for (let i = 0; i < 36; i++){
+  for (let i = 0; i < 128; i++){
     let x = drawX;
     let y = drawY;
     xOffset = x - bounds_negX;
@@ -49,8 +51,8 @@ function draw() {
     colIndex = int(xOffset/resolution);
     rowIndex = int(yOffset/resolution);
     gridAngle = griduv[colIndex][rowIndex];
-    let xStep = stepSizeX * (cos(gridAngle) *1.25);
-    let yStep = stepSizeY * (sin(gridAngle) *1.25);
+    let xStep = stepSizeX * (sin(gridAngle) *1);
+    let yStep = stepSizeY * (cos(gridAngle) *1);
     console.log(xStep, yStep, initY);
     let x2 = x + xStep;
     let y2 = y + yStep;
@@ -63,6 +65,7 @@ function draw() {
   //initX = mouseX;
   //initY = mouseY;
   endShape();
+
 }
 
 function keyReleased() {
@@ -80,23 +83,26 @@ function initGrid() {
   bounds_posX = int(width * 1.5);
   bounds_negY = int(height * -0.5);
   bounds_posY = int(height * 1.5);
-  resolution = int(width * .01);
+  resolution = int(width * .0175);
   numCols = (bounds_posX - bounds_negX) / resolution;
   numRows = (bounds_posY - bounds_negY) / resolution;
   index = 0;
-
+  attribScale = 1;
+  attribQuant = PI/6;
   for (let i = 0; i < numRows; i++){
     for (let j = 0; j < numCols; j++) {
-      noiseSeed(8);
+      noiseSeed(98);
       griduv[index] = [];
       //griduv[index]=createVector(j,i);
-      griduv[i][j]=noise((j)*(resolution/160), (i)*(resolution/160))*4;
+      noiseDetail(1,0.2);
+      griduv[i][j]=(noise((j+1900)*0.15, (i)*0.15)*8);
+      griduv[i][j]/=attribQuant;
       grid[index] = noise((j)*(resolution/1060), (i)*(resolution/1060))*4;
       index++;
 
     }
   }
-  return bounds_posY, bounds_negY, bounds_posX, bounds_negX, grid, griduv, numRows, numCols, resolution;
+  return bounds_posY, bounds_negY, bounds_posX, bounds_negX, grid, griduv, numRows, numCols, resolution, attribScale, attribQuant;
 }
 
 function advectGrid(grid, griduv) {
@@ -104,10 +110,12 @@ function advectGrid(grid, griduv) {
   index = 0;
   for (let i = 0; i < numRows; i++){
     for (let j = 0; j < numCols; j++) {
-
+    noiseDetail(1,0.2);
     grid[index]+=((map(sin(((frameCount+120)*.075)), -1, 1, -0.5,.5))*.005*(index/numCols*numRows*.01))%2;
-      griduv[i][j] += noise((frameCount/16)+griduv[i][j], (frameCount*.5)*(resolution/360))*.01;
-      index++;
+    //griduv[i][j] += noise((frameCount/16)+griduv[i][j], (frameCount*.5)*(resolution/360))*.01;
+    griduv[i][j]=(noise((j)*0.05, (i+frameCount*.1)*0.05,(i)*0.05)*4);
+    griduv[i][j]/=attribQuant;
+    index++;
     }
   }
     return grid;
@@ -118,15 +126,17 @@ function vizGrid(grid) {
   for (let i = 0; i < numRows; i++){
     for (let j = 0; j < numCols; j++) {
       push();
-
         translate(j*resolution,i*resolution);
-        rotate(griduv[i][j]);
-        stroke(griduv[i][j]*100,0,0,35);
-        line(0,0,0,-72);
+        rotate(griduv[i][j] - (PI/2));
+        stroke(255,0,0,35);
+        line(0,0,0,15);
+        stroke(255,255,0,35);
+        line(-15, 0, 0, 15);
         index++;
       pop();
     }
   }
+  /*
   index = 0;
   for (let i = 0; i < numRows; i++){
     for (let j = 0; j < numCols; j++) {
@@ -153,7 +163,7 @@ function vizGrid(grid) {
       pop();
     }
   }
-  return grid;
+  return grid; */
 }
 /*
 function sendOsc(address, value) {
