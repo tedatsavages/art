@@ -39,7 +39,7 @@ Blur Scale - normalized, amount of Blur
 Blur Size - normalized, size of blur radius
 Intensity - normalized, brightness of blur
 
-//General Pan Direction - normalized value interally remapped to -1 - 1 - sets direction for non-BPM panning (set BPM direction with BPM scale).
-//General Pan Range Low/High - leave as is for medium to slow, range higher for faster pans (careful!)
+General Pan Direction - normalized value interally remapped to -1 - 1 - sets direction for non-BPM panning (set BPM direction with BPM scale).
+General Pan Range Low/High - leave as is for medium to slow, range higher for faster pans (careful!)
 
 Flat Color/Color - Colors for the three channels of video synth that feed the offset. Colors add, might not be intuitive to change - dim values will maintain color, overblasting all three channels (for example, adding 200,200,200 and 200,200,200) will create white.

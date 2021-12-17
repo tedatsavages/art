@@ -1,0 +1,14 @@
+Milled structural lumber dimensions
+
+Actual size (Europe)     Actual size (U.S.)     Nominal size (U.S.)
+ 30 mm  1.18 in
+ 36 mm  1.42 in
+ 48 mm  1.89 in           38 mm  1.50 in             2 in
+ 61 mm  2.40 in
+ 73 mm  2.87 in           64 mm  2.50 in             3 in
+ 98 mm  3.86 in           89 mm  3.50 in             4 in
+123 mm  4.84 in          114 mm  4.50 in             5 in
+148 mm  5.83 in          140 mm  5.50 in             6 in
+173 mm  6.81 in          159 mm  6.25 in             7 in
+198 mm  7.80 in          184 mm  7.25 in             8 in
+223 mm  8.78 in
