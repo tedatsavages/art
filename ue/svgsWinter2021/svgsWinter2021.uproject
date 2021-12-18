@@ -12,14 +12,6 @@
 		{
 			"Name": "HoudiniEngine",
 			"Enabled": true
-		},
-		{
-			"Name": "NiagaraSimulationStages",
-			"Enabled": true
-		},
-		{
-			"Name": "Metasound",
-			"Enabled": true
 		}
 	]
 }

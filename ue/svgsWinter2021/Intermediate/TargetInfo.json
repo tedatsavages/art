@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "svgsWinter2021",
+			"Path": "C:\\Users\\tedpa\\Documents\\art\\ue\\svgsWinter2021\\Source\\svgsWinter2021.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "svgsWinter2021Editor",
+			"Path": "C:\\Users\\tedpa\\Documents\\art\\ue\\svgsWinter2021\\Source\\svgsWinter2021Editor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}

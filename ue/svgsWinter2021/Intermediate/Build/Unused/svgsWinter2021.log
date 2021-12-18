@@ -1,0 +1,6 @@
+﻿  '"D:\epicLib\UE_5.0EA\Engine\Build\BatchFiles\GetDotnetPath.bat"' is not recognized as an internal or external command,
+  operable program or batch file.
+  Win64 using Manual SDK 10.0.16299.0
+  Creating makefile for svgsWinter2021Editor (no existing makefile)
+UnrealBuildTool : error : Found 'HoudiniEngine' plugin in two locations (D:\epicLib\UE_5.0EA\Engine\Plugins\HoudiniEngine\HoudiniEngine.uplugin and D:\epicLib\UE_5.0EA\Engine\Plugins\Runtime\HoudiniEngine\HoudiniEngine.uplugin). Plugin names must be unique.
+C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.MakeFile.Targets(44,5): error MSB3073: The command "D:\epicLib\UE_5.0EA\Engine\Build\BatchFiles\Build.bat svgsWinter2021Editor Win64 Development -Project="C:\Users\tedpa\Documents\art\ue\svgsWinter2021\svgsWinter2021.uproject" -WaitMutex -FromMsBuild" exited with code 6.

@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="..\..\svgsWinter2021.uproject" />
+    <Filter Include="Source">
+      <UniqueIdentifier>{835351EC-D419-4060-963D-6002454C93CC}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\svgsWinter2021.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\Source\svgsWinter2021Editor.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <Filter Include="Config">
+      <UniqueIdentifier>{F6FB946E-4295-403F-AEF5-6E9127166941}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\DefaultEditor.ini">
+      <Filter>Config</Filter>
+    </None>
+    <Filter Include="Source\svgsWinter2021">
+      <UniqueIdentifier>{1D192415-9B58-4D61-993E-C3C6CA44A7FC}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\svgsWinter2021\sphereize.cpp">
+      <Filter>Source\svgsWinter2021</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\svgsWinter2021\sphereize.h">
+      <Filter>Source\svgsWinter2021</Filter>
+    </ClInclude>
+    <None Include="..\..\Source\svgsWinter2021\svgsWinter2021.Build.cs">
+      <Filter>Source\svgsWinter2021</Filter>
+    </None>
+    <ClCompile Include="..\..\Source\svgsWinter2021\svgsWinter2021.cpp">
+      <Filter>Source\svgsWinter2021</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\svgsWinter2021\svgsWinter2021.h">
+      <Filter>Source\svgsWinter2021</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
